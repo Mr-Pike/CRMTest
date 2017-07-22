@@ -1,194 +1,52 @@
-﻿using System;
-using System.ComponentModel;
-
 namespace CRMTest.Model
 {
-    public class Company : INotifyPropertyChanged
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    [Table("Company")]
+    public partial class Company
     {
-        private string name;
-        private string address_line_1;
-        private string address_line_2;
-        private string zipCode;
-        private string city;
-        private short country_ID;
-        private string siren;
-        private string phone;
-        private string fax;
-        private string mail;
+        [Key]
+        public long ID { get; set; }
 
-        public long ID
-        {
-            get;
-        }
+        [Required]
+        [StringLength(100)]
+        public string Name { get; set; }
 
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                if (name != value)
-                {
-                    name = value;
-                    RaisePropertyChanged("Name");
-                }
-            }
-        }
+        [Required]
+        [StringLength(255)]
+        public string Address_line_1 { get; set; }
 
-        public string Address_line_1
-        {
-            get
-            {
-                return address_line_1;
-            }
-            set
-            {
-                if (address_line_1 != value)
-                {
-                    address_line_1 = value;
-                    RaisePropertyChanged("AdressLine1");
-                }
-            }
-        }
+        [StringLength(255)]
+        public string Address_line_2 { get; set; }
 
-        public string Address_line_2
-        {
-            get
-            {
-                return address_line_2;
-            }
-            set
-            {
-                if (address_line_2 != value)
-                {
-                    address_line_2 = value;
-                    RaisePropertyChanged("AdressLine1");
-                }
-            }
-        }
+        [Required]
+        [StringLength(32)]
+        public string ZipCode { get; set; }
 
-        public string ZipCode
-        {
-            get
-            {
-                return zipCode;
-            }
-            set
-            {
-                if (zipCode != value)
-                {
-                    zipCode = value;
-                    RaisePropertyChanged("ZipCode");
-                }
-            }
-        }
+        [Required]
+        [StringLength(255)]
+        public string City { get; set; }
 
-        public string City
-        {
-            get
-            {
-                return city;
-            }
-            set
-            {
-                if (city != value)
-                {
-                    city = value;
-                    RaisePropertyChanged("City");
-                }
-            }
-        }
+        public short? Country_ID { get; set; }
 
-        public short Country_ID
-        {
-            get
-            {
-                return country_ID;
-            }
-            set
-            {
-                if (country_ID != value)
-                {
-                    country_ID = value;
-                    RaisePropertyChanged("Country_ID");
-                }
-            }
-        }
+        [StringLength(9)]
+        public string Siren { get; set; }
 
-        public string Siren
-        {
-            get
-            {
-                return siren;
-            }
-            set
-            {
-                if (siren != value)
-                {
-                    siren = value;
-                    RaisePropertyChanged("Siren");
-                }
-            }
-        }
+        [Required]
+        [StringLength(14)]
+        public string Phone { get; set; }
 
-        public string Phone
-        {
-            get
-            {
-                return phone;
-            }
-            set
-            {
-                if (phone != value)
-                {
-                    phone = value;
-                    RaisePropertyChanged("Phone");
-                }
-            }
-        }
+        [StringLength(14)]
+        public string Fax { get; set; }
 
-        public string Fax
-        {
-            get
-            {
-                return fax;
-            }
-            set
-            {
-                if (fax != value)
-                {
-                    fax = value;
-                    RaisePropertyChanged("Fax");
-                }
-            }
-        }
+        [Required]
+        [StringLength(255)]
+        public string Mail { get; set; }
 
-        public string Mail
-        {
-            get
-            {
-                return mail;
-            }
-            set
-            {
-                if (mail != value)
-                {
-                    mail = value;
-                    RaisePropertyChanged("Mail");
-                }
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void RaisePropertyChanged(string prop)
-        {
-            if (PropertyChanged != null) {
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-            }
-        }
-
+        public virtual Country Country { get; set; }
     }
 }

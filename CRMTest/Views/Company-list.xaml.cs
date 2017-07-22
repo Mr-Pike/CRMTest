@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -35,7 +36,10 @@ namespace CRMTest
         /// <param name="e"></param>
         private void AddCompanyButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Company_form CF = new Company_form();
+            CF.Show();
+            CF.Closed += CF_Form_closing;
+            DataContext = new CompanyViewModel();
         }
 
         /// <summary>
@@ -62,7 +66,13 @@ namespace CRMTest
             DataRowView DRV = (DataRowView)CompanyListView.SelectedItems[0];
 
             Company_form CF = new Company_form(Convert.ToInt64(DRV.Row["ID"]));
+            CF.Closed += CF_Form_closing;
             CF.Show();
+        }
+
+        private void CF_Form_closing(Object sender, EventArgs e)
+        {
+            DataContext = new CompanyViewModel();
         }
 
         /// <summary>
@@ -70,11 +80,17 @@ namespace CRMTest
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RemoveCompanyButton_Click(object sender, RoutedEventArgs e)
+        private void RemoveCompanyButton_Click(object sender, EventArgs e)
         {
+            if (CompanyListView.SelectedItems.Count <= 0)
+                return;
 
+            DataRowView DRV = (DataRowView)CompanyListView.SelectedItems[0];
+            CompanyViewModel CVM = new CompanyViewModel();
+            if (CVM.RemoveCompany(Convert.ToInt64(DRV.Row["ID"])))
+            {
+                DataContext = new CompanyViewModel();
+            }
         }
-
-
     }
 }

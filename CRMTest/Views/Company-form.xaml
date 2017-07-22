@@ -6,11 +6,10 @@
         xmlns:local="clr-namespace:CRMTest.Views"
         mc:Ignorable="d"
         Title="Company_form" Height="432" Width="768">
-    <Grid RenderTransformOrigin="0.598,0.494">
-
+    <Grid RenderTransformOrigin="0.598,0.494" Margin="15,15,15,15">
         <Grid.Resources>
             <Style TargetType="Label">
-                <Setter Property="HorizontalAlignment" Value="Center">
+                <Setter Property="HorizontalAlignment" Value="Left">
                 </Setter>
                 <Setter Property="VerticalAlignment" Value="Center">
                 </Setter>
@@ -18,9 +17,17 @@
             <Style TargetType="TextBox">
                 <Setter Property="HorizontalAlignment" Value="Stretch">
                 </Setter>
+                <Setter Property="Height" Value="25">
+                </Setter>
                 <Setter Property="VerticalAlignment" Value="Center">
                 </Setter>
-                <Setter Property="TextAlignment" Value="Center">
+            </Style>
+            <Style TargetType="ComboBox">
+                <Setter Property="HorizontalAlignment" Value="Stretch">
+                </Setter>
+                <Setter Property="Height" Value="25">
+                </Setter>
+                <Setter Property="VerticalAlignment" Value="Center">
                 </Setter>
             </Style>
         </Grid.Resources>
@@ -36,29 +43,30 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition Width="15"/>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">Raison sociale</Label>
-        <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left">Adresse</Label>
-        <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left">Complément d'adresse</Label>
-        <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left">Code postal</Label>
-        <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left">Ville</Label>
-        <Label Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left">Pays</Label>
-        <Label Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left">Siren</Label>
-        <Label Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left">Téléphone</Label>
-        <Label Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left">Fax</Label>
-        <Label Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left">Adresse mail</Label>
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name}"></TextBox>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding AdressLine1}"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding AdressLine2}"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ZipCode}"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding City}"></TextBox>
-        <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding CountryID}"></TextBox>
-        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Siren}"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Phone}"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding Fax}"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding Mail}"></TextBox>
-        <Button Grid.ColumnSpan="5" Grid.Row="10">Enregistrer</Button>
+        <Label Grid.Row="0" Grid.Column="0">Raison sociale</Label>
+        <Label Grid.Row="1" Grid.Column="0">Adresse</Label>
+        <Label Grid.Row="2" Grid.Column="0">Complément d'adresse</Label>
+        <Label Grid.Row="3" Grid.Column="0">Code postal</Label>
+        <Label Grid.Row="4" Grid.Column="0">Ville</Label>
+        <Label Grid.Row="0" Grid.Column="3">Pays</Label>
+        <Label Grid.Row="1" Grid.Column="3">Siren</Label>
+        <Label Grid.Row="2" Grid.Column="3">Téléphone</Label>
+        <Label Grid.Row="3" Grid.Column="3">Fax</Label>
+        <Label Grid.Row="4" Grid.Column="3">Adresse mail</Label>
+        <TextBox x:Name="Name" Grid.Row="0" Grid.Column="1" Text="{Binding SelectedCompany.Name, Mode='TwoWay'}"></TextBox>
+        <TextBox x:Name="Address_line_1" Grid.Row="1" Grid.Column="1" Text="{Binding SelectedCompany.Address_line_1, Mode='TwoWay'}"></TextBox>
+        <TextBox x:Name="Address_line_2" Grid.Row="2" Grid.Column="1" Text="{Binding SelectedCompany.Address_line_2, Mode='TwoWay'}"></TextBox>
+        <TextBox x:Name="ZipCode" Grid.Row="3" Grid.Column="1" Text="{Binding SelectedCompany.ZipCode, Mode='TwoWay'}"></TextBox>
+        <TextBox x:Name="City" Grid.Row="4" Grid.Column="1" Text="{Binding SelectedCompany.City, Mode='TwoWay'}"></TextBox>
+        <ComboBox x:Name="CountryID" Grid.Row="0" Grid.Column="4" ItemsSource="{Binding Countries, Mode='TwoWay'}" SelectedValue="{Binding SelectedCountry.ID, Mode='TwoWay'}"  SelectedValuePath="ID" DisplayMemberPath="Name"></ComboBox>
+        <TextBox x:Name="Siren" Grid.Row="1" Grid.Column="4" Text="{Binding SelectedCompany.Siren, Mode='TwoWay'}"></TextBox>
+        <TextBox x:Name="Phone" Grid.Row="2" Grid.Column="4" Text="{Binding SelectedCompany.Phone, Mode='TwoWay'}"></TextBox>
+        <TextBox x:Name="Fax" Grid.Row="3" Grid.Column="4" Text="{Binding SelectedCompany.Fax, Mode='TwoWay'}"></TextBox>
+        <TextBox x:Name="Mail" Grid.Row="4" Grid.Column="4" Text="{Binding SelectedCompany.Mail, Mode='TwoWay'}"></TextBox>
+        <Button Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="10" Click="Button_Click">Enregistrer</Button>
     </Grid>
 </Window>
