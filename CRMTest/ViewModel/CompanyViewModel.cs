@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
 using CRMTest.Model;
 using System.Windows;
@@ -19,17 +16,24 @@ namespace CRMTest
         {
             DataTable dt = new DataTable();
 
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CRMTest"].ConnectionString))
-            {
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                adapter.SelectCommand = new SqlCommand("SELECT C.ID, C.Name, C.Siren, C.Address_line_1, C.ZipCode, C.City, C.Phone, C.Mail, CC.name AS CountryName " +
-                    " FROM COMPANY C" +
-                    " LEFT JOIN COUNTRY CC ON C.Country_ID = CC.ID" +
-                    " ORDER BY C.ID", connection);
-                adapter.Fill(dt);
-            }
+            try
+            { 
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CRMTest"].ConnectionString))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    adapter.SelectCommand = new SqlCommand("SELECT C.ID, C.Name, C.Siren, C.Address_line_1, C.ZipCode, C.City, C.Phone, C.Mail, CC.name AS CountryName " +
+                        " FROM COMPANY C" +
+                        " LEFT JOIN COUNTRY CC ON C.Country_ID = CC.ID" +
+                        " ORDER BY C.ID", connection);
+                    adapter.Fill(dt);
+                }
 
-            CompanyList = dt.DefaultView;
+                CompanyList = dt.DefaultView;
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("La liste des entreprises n'a pas été récupérée. \n\n L'erreur suivante s'est produite : " + e.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
         }
 
         public bool RemoveCompany(long ID)
